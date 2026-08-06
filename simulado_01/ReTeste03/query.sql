@@ -10,6 +10,7 @@ select p.nome_produto, p.preco, p.id_categoria from produtos as p where p.preco 
 where p2.id_categoria = p.id_categoria) order by id_produto asc
 
 --7v
+select f.nome, f.cargo, s.nome as nome_supervisor from funcionarios as f 
 left join funcionarios as s on s.id_funcionario = f.id_supervisor
 
 --8v
