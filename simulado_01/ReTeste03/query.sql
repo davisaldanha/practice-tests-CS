@@ -5,6 +5,17 @@ inner join pedidos as pe on ip.id_pedido = pe.id_pedido
 inner join clientes as c on pe.id_cliente = c.id_cliente
 where status = 'Concluído' order by nome asc;
 
+--2v;
+select c.nome, count(distinct(
+case
+when p.status = 'Concluído' then p.id_pedido
+end
+)) as qtd_pedidos_concluidos, sum(coalesce(ip.quantidade * ip.preco_unitario, 0)) as total_gasto
+from itens_pedido as ip
+right join pedidos as p on ip.id_pedido = p.id_pedido
+right join clientes as c on p.id_cliente = c.id_cliente
+group by c.nome order by qtd_pedidos_concluidos desc
+
 --3v
 select p.nome_produto, p.preco, p.id_categoria from produtos as p where p.preco > (select avg(preco) from produtos p2 
 where p2.id_categoria = p.id_categoria) order by id_produto asc
